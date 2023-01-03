@@ -1,8 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import UserSchema from "./schema.js";
 
 
-const usersRouter = express.Router();
+const usersRouter = Router();
 
 usersRouter.post("/register", async (req, res, next) => {
     try {
