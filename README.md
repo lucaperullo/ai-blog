@@ -14,11 +14,11 @@ To install and start the project, follow these steps:
 
 The project includes the following routes for accessing the blog's functionality through the REST APIs:
 
-- `GET /api/posts`: gets a list of all posts
-- `GET /api/posts/:id`: gets a single post with the specified ID
-- `POST /api/posts`: creates a new post using artificial intelligence to generate the content
-- `PATCH /api/posts/:id`: updates an existing post
-- `DELETE /api/posts/:id`: deletes a post
+- `POST /api/users/register`: route to register a new user.
+- `POST /api/users/login`: route to login an existing user.
+- `POST /api/users/logout`: route to logout a user.
+- `GET /api/users/refreshToken`: route to refresh the user's access token.
+- `GET /api/users/me`: route to get the user's information.
 
 ## Authors
 
@@ -27,3 +27,4 @@ The project includes the following routes for accessing the blog's functionality
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more information.
+s
