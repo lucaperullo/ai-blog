@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { errorHandler } from "../../utilities/errorHandler/index.js";
+import { authenticate } from "../../utilities/guard/index.js";
 import { authorize } from "../../utilities/guard/middleware.js";
 import UserSchema from "./schema.js";
 
