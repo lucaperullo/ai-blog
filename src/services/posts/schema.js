@@ -2,8 +2,30 @@ import {Schema, model} from "mongoose";
 
 const PostSchema = new Schema({
     title: {
+      it: {
         type: String,
         required: true,
+      },
+        en: {
+            type: String,
+            required: true,
+        },
+        fr: {
+            type: String,
+            required: true,
+        },
+        de: {
+            type: String,
+            required: true,
+        },
+        ru: {
+            type: String,
+            required: true,
+        },
+        es: {
+            type: String,
+            required: true,
+        },
     },
     cover: {
         type: String,
@@ -16,8 +38,30 @@ const PostSchema = new Schema({
         ref: "Category",
     },
     content: {
-        type: String,
-        required: true,
+        it: {
+            type: String,
+            required: true,
+          },
+            en: {
+                type: String,
+                required: true,
+            },
+            fr: {
+                type: String,
+                required: true,
+            },
+            de: {
+                type: String,
+                required: true,
+            },
+            ru: {
+                type: String,
+                required: true,
+            },
+            es: {
+                type: String,
+                required: true,
+            },
     },
 });
 

@@ -1,14 +1,57 @@
 import { Schema, model } from "mongoose";
 
 const CategorySchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
+    title: {
+        it: {
+            type: String,
+            required: true,
+          },
+            en: {
+                type: String,
+                required: true,
+            },
+            fr: {
+                type: String,
+                required: true,
+            },
+            de: {
+                type: String,
+                required: true,
+            },
+            ru: {
+                type: String,
+                required: true,
+            },
+            es: {
+                type: String,
+                required: true,
+            },
     },
-    description: {
-        type: String,
-        required: true,
+    content: {
+        it: {
+            type: String,
+            required: true,
+          },
+            en: {
+                type: String,
+                required: true,
+            },
+            fr: {
+                type: String,
+                required: true,
+            },
+            de: {
+                type: String,
+                required: true,
+            },
+            ru: {
+                type: String,
+                required: true,
+            },
+            es: {
+                type: String,
+                required: true,
+            },
     },
   posts: [
     {

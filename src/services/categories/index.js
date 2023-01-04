@@ -6,6 +6,7 @@ import { authorize } from "../../utilities/guard/middleware.js";
 import { adminOnly } from "../../utilities/guard/middleware.js";
 import CategorySchema from "./schema.js";
 import PostSchema from "../posts/schema.js";
+import { internationalizer } from "../../utilities/internationalizer/index.js";
 
 const categoriesRouter = express.Router();
 
@@ -40,7 +41,7 @@ categoriesRouter.get("/:id", async (req, res, next) => {
 );
 
 // POST /categories
-categoriesRouter.post("/", authorize, adminOnly, async (req, res, next) => {
+categoriesRouter.post("/", authorize, adminOnly,internationalizer, async (req, res, next) => {
     try {
         const newCategory = new CategorySchema(req.body);
          await newCategory.save();
@@ -52,7 +53,7 @@ categoriesRouter.post("/", authorize, adminOnly, async (req, res, next) => {
 );
 
 // PUT /categories/:id
-categoriesRouter.put("/:id", authorize, adminOnly, async (req, res, next) => {
+categoriesRouter.put("/:id", authorize, adminOnly,internationalizer, async (req, res, next) => {
     try {
         const category = await CategorySchema.findByIdAndUpdate(req.params.id, req.body, {
             runValidators: true,
