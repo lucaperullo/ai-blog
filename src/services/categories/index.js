@@ -5,6 +5,7 @@ import { errorHandler } from "../../utilities/errorHandler/index.js";
 import { authorize } from "../../utilities/guard/middleware.js";
 import { adminOnly } from "../../utilities/guard/middleware.js";
 import CategorySchema from "./schema.js";
+import PostSchema from "../posts/schema.js";
 
 const categoriesRouter = express.Router();
 
@@ -71,11 +72,17 @@ categoriesRouter.put("/:id", authorize, adminOnly, async (req, res, next) => {
 // DELETE /categories/:id
 categoriesRouter.delete("/:id", authorize, adminOnly, async (req, res, next) => {
     try {
-        const category = await CategorySchema.findByIdAndDelete(req.params.id);
+        const category = await CategorySchema.findById(req.params.id);
+        // delete all posts in the category before deleting the category itself 
         if (category) {
-            res.send("Deleted");
-        } else {
-            res.status(404).send("Category not found!");
+            category.posts.forEach(async (post) => {
+                await PostSchema.findByIdAndDelete(post);
+            });
+            await category.delete();
+            res.send({
+                message: "Category deleted successfully!",
+
+            });
         }
     } catch (error) {
         next(error);
