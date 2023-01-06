@@ -7,7 +7,18 @@ import { adminOnly } from "../../utilities/guard/middleware.js";
 import PostSchema from "./schema.js";
 import CategorySchema from "../categories/schema.js";
 import { internationalizer } from "../../utilities/internationalizer/index.js";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import multer from "multer";
+import cloudinary from "../../utilities/cloudinary/index.js";
 
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "ai-blog",
+  },
+});
+
+const cloudinaryMulter = multer({ storage });
 const postsRouter = express.Router();
 
 // GET /posts
@@ -36,20 +47,34 @@ postsRouter.get("/:id", async (req, res, next) => {
 }
 );
 
-// POST /posts
-postsRouter.post("/:categoryId", authorize, adminOnly, internationalizer, async (req, res, next) => {
-    try {
-        const newPost = new PostSchema(req.body);
+
+postsRouter.post(
+    "/:categoryId",
+   
+    internationalizer,
+    cloudinaryMulter.single("image"),
+    async (req, res, next) => {
+      try {
+        console.log(req.body,req.file)
+        const newPost = new PostSchema(
+            {
+                title: req.body.title,
+                content: req.body.content,
+                cover: req.file.path,
+            }
+        );
+        
         const { _id } = await newPost.save();
         const category = await CategorySchema.findById(req.params.categoryId);
+  
         category.posts.push(_id);
         await category.save();
         res.status(201).send(_id);
-    } catch (error) {
+      } catch (error) {
         next(error);
+      }
     }
-}
-);
+  );
 
 // PUT /posts/:id
 postsRouter.put("/:id", authorize, adminOnly, internationalizer, async (req, res, next) => {
