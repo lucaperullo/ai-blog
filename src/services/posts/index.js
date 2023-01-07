@@ -10,6 +10,7 @@ import { internationalizer } from "../../utilities/internationalizer/index.js";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import multer from "multer";
 import cloudinary from "../../utilities/cloudinary/index.js";
+import { imageAdd } from "../../utilities/imageAdd/index.js";
 
 const storage = new CloudinaryStorage({
   cloudinary,
@@ -50,19 +51,14 @@ postsRouter.get("/:id", async (req, res, next) => {
 
 postsRouter.post(
     "/:categoryId",
-   
-    internationalizer,
     cloudinaryMulter.single("image"),
+    internationalizer,
+    
+    imageAdd,
     async (req, res, next) => {
       try {
-        console.log(req.body,req.file)
-        const newPost = new PostSchema(
-            {
-                title: req.body.title,
-                content: req.body.content,
-                cover: req.file.path,
-            }
-        );
+  console.log(req.body)
+      const newPost = new PostSchema(req.body);
         
         const { _id } = await newPost.save();
         const category = await CategorySchema.findById(req.params.categoryId);
