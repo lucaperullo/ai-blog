@@ -65,7 +65,7 @@ postsRouter.post(
   
         category.posts.push(_id);
         await category.save();
-        res.status(201).send(_id);
+        res.send(newPost);
       } catch (error) {
         next(error);
       }

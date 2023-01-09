@@ -1,7 +1,7 @@
 //middleware that post the image on cloudinary and add the url to the req.body
 export const imageAdd = async (req, res, next) => {
     try {
-        // console.log("1")
+        console.log(req.file)
         const image = req.file.path;
         // console.log(image)
         req.body.cover = image;
